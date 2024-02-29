@@ -1,12 +1,15 @@
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+import path from "path";
+import webpack from "webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { fileURLToPath } from 'url';
 
 const dev = process.env.NODE_ENV !== "production";
 
 const hmrPlugins = dev ? ["webpack-hot-middleware/client"] : [];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-module.exports = {
+export const config ={
   mode: process.env.NODE_ENV,
   devtool: dev ? "inline-source-map" : undefined,
   entry: [...hmrPlugins, path.join(__dirname, "src", "index.js")],

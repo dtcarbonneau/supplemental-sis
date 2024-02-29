@@ -1,8 +1,9 @@
 {
-  "name": "express-react-template",
+  "name": "supplemental-sis",
   "version": "1.0.0",
   "description": "Express and React template",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "build": "cross-env NODE_ENV=\"production\" webpack --config client/webpack.config.js -p",
@@ -10,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codingjlu/express-react-template.git"
+    "url": "git+https://github.com/dtcarbonneau/supplemental-sis.git"
   },
   "keywords": [
     "express",
@@ -19,16 +20,29 @@
     "babel",
     "webpack"
   ],
-  "author": "codingjlu",
+  "author": "dtcarbonneau",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/codingjlu/express-react-template/issues"
-  },
-  "homepage": "https://github.com/codingjlu/express-react-template#readme",
   "dependencies": {
-    "express": "^4.17.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@apollo/server": "^4.7.5",
+    "@datepicker-react/styled": "^2.8.4",
+    "@tanstack/react-query": "^4.35.3",
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.9",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "graphql-request": "^6.1.0",
+    "jsonwebtoken": "^9.0.1",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.1",
+    "qs": "^6.11.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sql": "^0.78.0",
+    "styled-components": "^6.0.7",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

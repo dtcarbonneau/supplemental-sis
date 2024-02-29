@@ -1,11 +1,56 @@
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
+import {
+  UserStatus, SaveAttendanceButton, StartEndClassButton, ReportAttendanceButton,
+  TakeAttendanceButton
+} from './ControlButtons.js';
+import { GlobalStyle, AppContainer, ControlStyle } from './StyledComponents.js';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { MhsClassList } from './mhsClassList.js';
+import { TakeAttendance } from './takeAttendance.js'
+import {SubmissionReport} from './submissionReport.js'
+import {useClientContext, ClientContextProvider} from './clientState.js';
+
+function App() {
+  const { state } = useClientContext();
+  return (
+    <AppContainer>
+      <GlobalStyle />
+        <ControlStyle gridarea="controls" justify="end">
+          <UserStatus />
+        </ControlStyle>
+      {state?.user_email ? <MhsClassList gridarea="list"/> : ""}
+        <ControlStyle gridarea="controls">
+        {state?.mhsClassIndex + 1 && state?.mode === "InitialOptions" ?
+          <><TakeAttendanceButton/><ReportAttendanceButton/></> : ""}
+        {state?.mode === "TakeAttendance" ?
+          <StartEndClassButton /> : ""}
+        {state?.mode === "SaveAttendance" ?
+          <SaveAttendanceButton /> : ""}
+        </ControlStyle>
+      {state?.mode === "TakeAttendance" ?
+          <TakeAttendance />: ""}
+      {state?.mode === "ReportAttendance" ?
+        // <AttendanceReport/>:""}
+         <SubmissionReport /> : ""}
+      {/* <div style={{ display:"flex", gridarea:"nav" }}>
+      {state.mhsClassIndex ? <StartEndClassButton /> : ""}
+      {state.attendance.length > 0 && state.display === "mhsClasses" ? <SaveAttendanceButton /> : ""}
+      {state.display === "mhsClasses" && state.mhsClassIndex ?  : ""}
+    </div> */}
+      {/* {state.display === "mhsClasses" && state.mhsClassIndex ?
+      <AttendanceGrid /> : ""} */}
+    </AppContainer>)}
+
 
 function Index() {
-  return <h1>Hello, world!</h1>;
+  const client = new QueryClient();
+  return (<QueryClientProvider client={client}>
+    <ClientContextProvider><App/>
+    </ClientContextProvider></QueryClientProvider>)
 }
 
-ReactDOM.render(<Index />, document.getElementById("root"));
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-if (module.hot) {
-  module.hot.accept();
-}
+root.render(<Index />);
