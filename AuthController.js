@@ -88,7 +88,7 @@ export async function userInfoHandler(req, res) {
 export async function refreshAccessToken({ id, access_token, expires_at, refresh_token }) {
   if (expires_at * 1000 < Date.now()) {
     console.log("expired")
-    try {
+    //try {
       const rtResponse = await fetch("https://oauth2.googleapis.com/token", {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
@@ -108,9 +108,9 @@ export async function refreshAccessToken({ id, access_token, expires_at, refresh
        )
       //update access token with refreshed value.
       access_token = refresh_update.access_token;
-    } catch (error) {
-      console.error("Error refreshing access token", error)
-    }
+    //} catch (error) {
+    //  console.error("Error refreshing access token", error)
+    //}
   }
   return access_token
 }

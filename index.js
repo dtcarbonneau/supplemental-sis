@@ -11,7 +11,8 @@ import pkg from 'body-parser';
 import { typeDefs } from './typeDefs.js';
 import { resolvers } from './resolvers.js';
 import 'dotenv/config';
-import {getGoogleOAuthURL, userInfoHandler, googleOauthHandler, getToken} from './AuthController.js'
+import { getGoogleOAuthURL, userInfoHandler, googleOauthHandler, getToken } from './AuthController.js'
+//imports below give us webpack compiler that generates our index.html in dev mode
 import {webpackDevMiddlewareComp, webpackHotMiddlewareComp} from './dev.js'
 
 const { json } = pkg;
@@ -51,10 +52,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //middlewares
+//serve static index.html file in production mode
 app.use(express.static(path.join(__dirname, "client", "dist")));
-  if (dev) {
+//generate index.html in development mode
+if (dev) {
     app.use(webpackDevMiddlewareComp).use(webpackHotMiddlewareComp);
-}
+    }
 
 app.use(cors(),json(),cookieParser())
 

@@ -47,7 +47,7 @@ export function TakeAttendance() {
                 <Cell border={!state.students[index]?.inClass ? "3px solid #AB2328" : ""}
                     opacity={state.students[index]?.inSchool ? 1 : .5}
                     color={state.students[index]?.inClass ? '#4d4d4d' : '#AB2328'}
-                    backgroundcolor={state.students[index]?.inClass ? '#4d4d4d' : '#AB2328'}>
+                >
                     {s.first_name} {s.last_name}</Cell>
                 <Cell onClick={() => {
                     dispatch({

@@ -4,12 +4,12 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import { fileURLToPath } from 'url';
 
 const dev = process.env.NODE_ENV !== "production";
-
+//If in dev mode load hmr plugins
 const hmrPlugins = dev ? ["webpack-hot-middleware/client"] : [];
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const config ={
+const config = {
   mode: process.env.NODE_ENV,
   devtool: dev ? "inline-source-map" : undefined,
   entry: [...hmrPlugins, path.join(__dirname, "src", "index.js")],
@@ -56,4 +56,6 @@ export const config ={
   devServer: {
     hot: true,
   },
-};
+}
+
+export default config;
