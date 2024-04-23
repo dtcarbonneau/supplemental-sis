@@ -8,7 +8,7 @@ export function UserStatus() {
     const { state, dispatch } = useClientContext();
     //545176888048
     useEffect(() => {
-        fetch('http://localhost:3000/user')
+        fetch('/user')
             .then(res => res.json())
             .then(data => dispatch({
                 type: 'USER_INFO',
