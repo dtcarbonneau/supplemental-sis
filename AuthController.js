@@ -15,12 +15,13 @@ const __dirname = path.dirname(__filename);
 const pool = new Pool({
   user: process.env.POSTGRES,
   host: 'localhost',
-  database: 'siscms_next',
+  database: 'supplementalsis',
   password: process.env.DBPASSWORD,
   port: 5432,
 })
 
-//Google Authorization URL to start OAuth flow.
+//Google Authorization URL to start OAuth flow. This function returns a URL which redirects the user
+//to the Google consent screne.
 export const getGoogleOAuthURL = () => {
   const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth"
 
@@ -75,12 +76,12 @@ export const getGoogleOAuthTokens = async ({ code }) => {
 export async function userInfoHandler(req, res) {
   const session_id = req.cookies.mhs_session_id
   if (session_id === undefined)
-  { return res.redirect('./login') }
+  { return res.redirect('./api/login') }
 
   const result = await pool.query("\
       SELECT user_email FROM sessions WHERE id =$1", [session_id])
   if (result.rows.length === 0)
-  {return res.redirect('./login') }
+  {return res.redirect('./api/login') }
 
   return res.send(JSON.stringify({ user_email: result.rows[0].user_email }))
 }
@@ -179,6 +180,7 @@ export async function googleOauthHandler(req, res) {
   const googleUser = jwt.decode(googleAuthObj.id_token)
   upsertUser(googleUser)
   const session_id = uuidv4();
+  //createSession adds a record in the sessions database
   createSession(session_id, googleAuthObj)
   res.cookie("mhs_session_id", session_id,
     {
@@ -186,6 +188,10 @@ export async function googleOauthHandler(req, res) {
       expires: dayjs().add(7, "days").toDate(),
       secure: true
     })
-  res.redirect("http://localhost:3000")
+  if (process.env.NODE_ENV === "development") {
+      res.redirect("http://localhost:3000")
+  }
+  else res.redirect("https://carbonneaued.net")
+
   return
 }

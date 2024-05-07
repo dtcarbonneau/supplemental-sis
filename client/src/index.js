@@ -15,6 +15,7 @@ function App() {
   const { state } = useClientContext();
   return (
     <AppContainer>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <GlobalStyle />
         <ControlStyle gridarea="controls" justify="end">
           <UserStatus />

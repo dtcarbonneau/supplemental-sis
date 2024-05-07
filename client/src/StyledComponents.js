@@ -16,7 +16,7 @@ export const AppContainer = styled.div`
     gap: 2px;
     width: ${({ width }) => width || ''};
     height: ${ ({ height }) => height || '' };
-    font-size: 12;
+    font-size: 14;
     justify-content: start;
     align-items: start;
     &:hover{box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.25)};
@@ -56,7 +56,7 @@ export const Cell = styled.div`
     writing-mode: ${({ writingmode }) => writingmode || 'horizontal-tb'};
     justify-items: ${({ justifyitems }) => justifyitems || 'start'};
     align-items: center;
-    font-size: 12;
+    font-size: 14;
     font-weight: ${({ fontweight }) => fontweight || 'normal'};
     padding: 2px 2px 2px 2px;
     &:hover{box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.25)};
@@ -66,7 +66,7 @@ export const RepCell = styled.div`
     width: ${({ width }) => width || '40px'};
     height: ${({ height }) => height || '20px'};
     border: ${({ border }) => border || ''};
-    font-size: 12;
+    font-size: 14;
     transform: scale(${({ transform })=>transform || 1},${({ transform })=>transform || 1});
     padding: 2px 2px 2px 2px;
     display: flex;
@@ -91,16 +91,16 @@ export const ControlStyle = styled.div`
     gap: 4px;
      &:hover{box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.25)};
     background-color: transparent;
-    border-radius: 12px;
+    border-radius: 14px;
     color: #AB2328
     `;
 
 export const BaseButton = styled.button`
-    width: ${({ width }) => width || '200px'};
+    width: ${({ width }) => width || '100px'};
     height: ${({ height }) => height || '40px'};
     border: ${({ border }) => border || ''};
     grid-area: ${({ gridarea }) => gridarea || ''};
-    font-size: 12;
+    font-size: 14;
     padding: 2px 5px;
     display: flex;
     flex-direction: row;
@@ -133,7 +133,7 @@ export const ReportStyle = styled.div`
     grid-area: report;
     display: grid;
     gap: 1px;
-    grid-template-columns: fit-content(170px) repeat(${({ cols }) => cols || '4'}, minmax(40px, 1fr));
+    grid-template-columns: 150px 20px 60px repeat(${({ cols }) => cols || '4'}, minmax(40px, 1fr));
     // grid-template-rows: fit-content(50px) repeat(${({ rows }) => rows || '4'}, 1fr);
     position: relative;
     justify-items: ${({ justifyitems }) => justifyitems || 'stretch'};

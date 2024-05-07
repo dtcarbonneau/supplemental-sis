@@ -6,7 +6,7 @@ export const useMhsClassesQuery = (qtr) => {
         queryKey: ['mhsClasses'],
         queryFn: async () => {
             const { mhsClasses } = await
-                request('http://localhost:3000/graphql',
+                request('./api/graphql',
                 gql`
                     query MhsClasses($qtr: String) {
                     mhsClasses(qtr: $qtr) {
@@ -35,7 +35,7 @@ export const useStudentsQuery = (courseId) => {
         queryFn: async () => {
             const { students } = await
                 request(
-                    'http://localhost:3000/graphql',
+                    './api/graphql',
                     gql`
                     query Students($courseId: String) {
                     students(courseId: $courseId) {
@@ -62,7 +62,7 @@ export const useAssignmentsQuery = (courseId, qtr) => {
         queryFn: async () => {
             const assignments = await
                 request(
-                    'http://localhost:3000/graphql',
+                    './api/graphql',
                     gql`
                     query Assignments($courseId: String, $qtr: String) {
                         assignments(courseId: $courseId, qtr: $qtr) {
@@ -92,7 +92,7 @@ export const useSubmissionsQuery = (courseId, assignments) => {
         queryFn: async () => {
             const { submissions } = await
                 request(
-                    'http://localhost:3000/graphql',
+                    './api/graphql',
                     gql`
                     query Submissions($courseId: String, $assignments: [AssignmentInput]) {
                         submissions(courseId: $courseId, assignments: $assignments) {
@@ -120,7 +120,7 @@ export const useAttendanceMutation = (attendanceTimeStamps) =>{ //{mhsClass, tim
         //queryKey: ['mhsClasses'],
         mutationFn: async () => {
             const { savedAttenance } = await
-                request('http://localhost:3000/graphql',
+                request('./api/graphql',
                 gql`
                 mutation CreateAttendanceTimeStamps($attendanceTimeStamps: [AttendanceTimeStampInput]) {
                         createAttendanceTimeStamps(AttendanceTimeStamps: $attendanceTimeStamps) {
@@ -143,7 +143,7 @@ export const useAttendanceInClassQuery = (mhsClassName) => {
         queryFn: async () => {
             const { attendanceInClass } = await
                 request(
-                    'http://localhost:3000/graphql',
+                    './api/graphql',
                     gql`
                     query AttendanceInClass($mhsClassName: String) {
                         attendanceInClass(mhsClassName: $mhsClassName) {

@@ -33,7 +33,7 @@ export function TakeAttendance() {
     console.log(serverStateStudents)
 
     return (
-        <ReportStyle cols={(serverStateAttendanceInClass?.attendanceInClass[0]?.attIntervals.length||0) + 2}>
+        <ReportStyle cols={(serverStateAttendanceInClass?.attendanceInClass[0]?.attIntervals.length||0) }>
             {/* Column headers */}
             <Cell>Student</Cell>
             <Cell>P/A</Cell>

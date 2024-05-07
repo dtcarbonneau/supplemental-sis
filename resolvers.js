@@ -7,7 +7,7 @@ const { Pool } = pg;
 const pool = new Pool({
   user: process.env.POSTGRES,
   host: 'localhost',
-  database: 'siscms_next',
+  database: 'supplementalsis',
   password: process.env.DBPASSWORD,
   port: 5432,
 })

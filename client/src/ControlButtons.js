@@ -8,7 +8,7 @@ export function UserStatus() {
     const { state, dispatch } = useClientContext();
     //545176888048
     useEffect(() => {
-        fetch('/user')
+        fetch('/api/user')
             .then(res => res.json())
             .then(data => dispatch({
                 type: 'USER_INFO',
@@ -26,7 +26,7 @@ export function UserStatus() {
         }
         return (<>
                 Not signed in <br />
-                    <BaseButton onClick={()=>window.location.href='/login'}>Sign In</BaseButton>
+                    <BaseButton onClick={()=>window.location.href='/api/login'}>Sign In</BaseButton>
                 </>
         );
 }
