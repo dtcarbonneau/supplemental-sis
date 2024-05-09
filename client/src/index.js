@@ -20,16 +20,16 @@ function App() {
         <ControlStyle gridarea="controls" justify="end">
           <UserStatus />
         </ControlStyle>
-      {state?.user_email ? <MhsClassList gridarea="list"/> : ""}
+          {state?.user_email ? <MhsClassList gridarea="list"/> : ""}
         <ControlStyle gridarea="controls">
-        {state?.mhsClassIndex + 1 && state?.mode === "InitialOptions" ?
+          {state?.mhsClassIndex + 1 && state?.mode === "InitialOptions" ?
           <><TakeAttendanceButton/><ReportAttendanceButton/></> : ""}
-        {state?.mode === "TakeAttendance" ?
+        {state?.mode === "TakeAttendance" && state?.user_email ?
           <StartEndClassButton /> : ""}
-        {state?.mode === "SaveAttendance" ?
+        {state?.mode === "SaveAttendance" && state?.user_email ?
           <SaveAttendanceButton /> : ""}
         </ControlStyle>
-      {state?.mode === "TakeAttendance" ?
+      {state?.mode === "TakeAttendance" && state?.user_email ?
           <TakeAttendance />: ""}
       {state?.mode === "ReportAttendance" ?
         // <AttendanceReport/>:""}

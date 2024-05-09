@@ -20,7 +20,11 @@ export function UserStatus() {
         return (
             <>
                 {state.user_email} <br />
-                <BaseButton onClick={() =>''}> Sign out </BaseButton>
+                <BaseButton onClick={() =>
+                    dispatch({
+                        type: 'USER_INFO',
+                        payload: '',
+                    })}> Sign out </BaseButton>
                 </>
             )
         }
@@ -89,6 +93,7 @@ export function SaveAttendanceButton() {
         }) : null
 
     const { isLoading, isSuccess, error, mutate } = useAttendanceMutation({ attendanceTimeStamps: namedAttendance });
+
     return (
         createPortal(<ModalOverlayStyle>
                 <ModalStyle>
@@ -101,9 +106,18 @@ export function SaveAttendanceButton() {
                         type: 'CHANGE_MODE',
                         payload: 'NoClass'
                     })
-            }}>
-                Save Attendance
-            </BaseButton>
+                    }}>
+                    Save Attendance
+                </BaseButton>
+                    <BaseButton onClick={() => {
+                    dispatch({
+                        type: 'CHANGE_MODE',
+                        payload: 'NoClass'
+                    })
+                    }}>
+                    Cancel
+                </BaseButton>
+
         </ModalStyle></ModalOverlayStyle>, document.getElementById('portal')
     ))
 }

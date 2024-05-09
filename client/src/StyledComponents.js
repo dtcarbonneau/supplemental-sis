@@ -133,7 +133,8 @@ export const ReportStyle = styled.div`
     grid-area: report;
     display: grid;
     gap: 1px;
-    grid-template-columns: 150px 20px 60px repeat(${({ cols }) => cols || '4'}, minmax(40px, 1fr));
+    grid-template-columns: 145px 25px 60px ${(props) => ( props.arcols ? "repeat("+props.arcols+",minmax(40px, 1fr));":";")}
+    //grid-template-columns: 145px 25px 60px ${"repeat(${({ arcols }) => arcols || '1'"}, minmax(40px, 1fr));
     // grid-template-rows: fit-content(50px) repeat(${({ rows }) => rows || '4'}, 1fr);
     position: relative;
     justify-items: ${({ justifyitems }) => justifyitems || 'stretch'};

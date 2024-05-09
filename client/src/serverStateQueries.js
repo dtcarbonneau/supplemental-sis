@@ -6,7 +6,7 @@ export const useMhsClassesQuery = (qtr) => {
         queryKey: ['mhsClasses'],
         queryFn: async () => {
             const { mhsClasses } = await
-                request('./api/graphql',
+                request('/api/graphql',
                 gql`
                     query MhsClasses($qtr: String) {
                     mhsClasses(qtr: $qtr) {
