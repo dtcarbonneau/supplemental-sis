@@ -69,7 +69,17 @@ else
   app.use(express.static(path.join(__dirname, "client", "dist")));
 
 app.use(cors(), json(), cookieParser())
-app.use(helmet());
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      imgSrc: [`'self'`, 'data:', 'apollo-server-landing-page.cdn.apollographql.com'],
+      scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+      manifestSrc: [`'self'`, 'apollo-server-landing-page.cdn.apollographql.com'],
+      frameSrc: [`'self'`, 'sandbox.embed.apollographql.com'],
+    },
+  },
+}));
 
 app.use(
   '/api/graphql',

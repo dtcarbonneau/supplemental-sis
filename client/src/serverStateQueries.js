@@ -137,16 +137,16 @@ export const useAttendanceMutation = (attendanceTimeStamps) =>{ //{mhsClass, tim
     });
 }
 
-export const useAttendanceInClassQuery = (mhsClassName) => {
+export const useAttendanceInClassQuery = (mhsClassName, aRstartDate, aRendDate) => {
     return useQuery({
-        queryKey: ["attendanceInClass", mhsClassName],
+        queryKey: ["attendanceInClass", mhsClassName, aRstartDate, aRendDate],
         queryFn: async () => {
             const { attendanceInClass } = await
                 request(
                     './api/graphql',
                     gql`
-                    query AttendanceInClass($mhsClassName: String) {
-                        attendanceInClass(mhsClassName: $mhsClassName) {
+                    query AttendanceInClass($mhsClassName: String, $aRstartDate: Int, $aRendDate: Int) {
+                        attendanceInClass(mhsClassName: $mhsClassName, aRstartDate: $aRstartDate, aRendDate: $aRendDate) {
                         student
                         attIntervals {
                             month
@@ -161,7 +161,7 @@ export const useAttendanceInClassQuery = (mhsClassName) => {
                         }
                     }
                     }`,
-                    { mhsClassName: mhsClassName }
+                    { mhsClassName: mhsClassName, aRstartDate: aRstartDate, aRendDate: aRendDate  }
                 );
             return { attendanceInClass };
         },

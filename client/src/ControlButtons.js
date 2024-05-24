@@ -1,7 +1,7 @@
 import { BaseButton, ModalStyle, ModalOverlayStyle } from './StyledComponents.js';
 import { createPortal } from 'react-dom';
 import {useAttendanceMutation,useStudentsQuery, useMhsClassesQuery} from './serverStateQueries.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useClientContext } from './clientState.js';
 
 export function UserStatus() {
@@ -35,6 +35,15 @@ export function UserStatus() {
         );
 }
 
+export function HomeButton() {
+    const { state, dispatch } = useClientContext();
+    return (
+    <BaseButton onClick={() => dispatch({
+        type: 'CHANGE_MODE',
+        payload: 'InitialOptions'
+    })}>Back</BaseButton>)
+}
+
 export function TakeAttendanceButton() {
     const { state, dispatch } = useClientContext();
     return (
@@ -42,6 +51,56 @@ export function TakeAttendanceButton() {
         type: 'CHANGE_MODE',
         payload: 'TakeAttendance'
     })}>Take Attendance</BaseButton>)
+}
+
+export function ReportAttendanceButton(){
+    const { dispatch } = useClientContext();
+    return (
+        <BaseButton onClick={() => dispatch({
+            type: 'CHANGE_MODE',
+            payload: 'ReportAttendance'
+        })}>
+            Report Attendance
+        </BaseButton>
+    )
+}
+export function ReportSubmittalsButton(){
+    const { dispatch } = useClientContext();
+    return (
+        <BaseButton onClick={() => dispatch({
+            type: 'CHANGE_MODE',
+            payload: 'ReportSubmittals'
+        })}>
+            Report Assignments
+        </BaseButton>
+    )
+}
+
+export function ReportAttStartDateInput() {
+    const [aRstartDate, setaRstartDate] = useState()
+    const [aRendDate, setaRendDate] = useState()
+    const { dispatch } = useClientContext();
+
+    function handleChangeSd(e) {
+        setaRstartDate(e.target.value)
+    }
+
+    function handleChangeEd(e) {
+        setaRendDate(e.target.value)
+    }
+
+    function handleUpdate() {
+        dispatch({
+            type: 'aRdateChange',
+            aRstartDate: Date.parse(new Date(aRstartDate).toLocaleDateString('fr-CA'))/1000,
+            aRendDate: Date.parse(new Date(aRendDate).toLocaleDateString('fr-CA'))/1000
+        })
+    }
+
+    return (<>
+        <label>Start Date: <input type="date" value={aRstartDate} onChange={handleChangeSd}></input> </label>
+        <label>End Date: <input type="date" value={aRendDate} onChange={handleChangeEd}></input> </label>
+        <BaseButton onClick={handleUpdate}>Update</BaseButton></>)
 }
 
 export function StartEndClassButton() {
@@ -120,16 +179,4 @@ export function SaveAttendanceButton() {
 
         </ModalStyle></ModalOverlayStyle>, document.getElementById('portal')
     ))
-}
-
-export function ReportAttendanceButton(){
-    const { dispatch } = useClientContext();
-    return (
-        <BaseButton onClick={() => dispatch({
-            type: 'CHANGE_MODE',
-            payload: 'ReportAttendance'
-        })}>
-            Report Attendance
-        </BaseButton>
-    )
 }

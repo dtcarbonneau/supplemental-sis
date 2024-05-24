@@ -26,7 +26,7 @@ export const typeDefs = `#graphql
       students(courseId:String): [Student]
       support: [Supporter]
       mhsClasses(qtr:String):[MhsClass]
-      attendanceInClass(mhsClassName:String):[AttendanceInClass]
+      attendanceInClass(mhsClassName:String, aRstartDate:Int, aRendDate: Int):[AttendanceInClass]
       submissions(courseId:String, assignments:[AssignmentInput]):[Submission]
       assignments(courseId:String,qtr:String):[Assignment]
     }

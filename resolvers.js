@@ -33,7 +33,7 @@ export const resolvers = {
 	      FROM students st WHERE email = $1", [email])
     },
 
-    attendanceInClass: async (parent, { mhsClassName }, context, info) => {
+    attendanceInClass: async (parent, { mhsClassName, aRstartDate, aRendDate }, context, info) => {
       const res = await pool.query("with q1 as \
           (select student,extract(MONTH from to_timestamp(time_class_start)) as month,\
           extract(DAY from to_timestamp(time_class_start)) as day,\
@@ -44,12 +44,12 @@ export const resolvers = {
           (select (a.time_in-a.time_class_start)/60 as \"timeIn\",\
           (a.time_out-a.time_class_start)/60 as \"timeOut\") as _)) as durationouts \
           from attendance as a \
-          where mhs_class = $1 \
+          where mhs_class = $1 and time_class_start >= $2 and time_class_start <= $3\
           group by student,month,day,hour,minute,classduration)\
           select student, json_agg(json_build_object('month', month,\
           'day', day, 'hour', hour, 'minute', minute,\
           'classDuration', classduration, 'durationOuts', durationouts)) as \"attIntervals\" from q1 \
-          group by student", [mhsClassName])
+          group by student", [mhsClassName, aRstartDate, aRendDate])
       return res.rows // ...res3.rows } //,Support:res2 }
     },
     students: async (parent, args, context, info) => {
@@ -126,7 +126,6 @@ export const resolvers = {
                               map(subHist => subHist.gradeHistory.pointsEarned).slice(-1)[0],
                   'retries': sub.submissionHistory.filter(subHist => 'stateHistory' in subHist).
                               filter(subHist => subHist.stateHistory.state === 'RETURNED').length -1
-
                 }
               })
 

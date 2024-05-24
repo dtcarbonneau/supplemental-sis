@@ -11,11 +11,12 @@ const clientContextReducer = (state, action) => {
             }
         case 'focusChange':
             return {...state, focusedInput: action.payload}
-        case 'dateChange':
+
+        case 'aRdateChange':
             return {
                 ...state,
-                startDate: action.payload.startDate,
-                endDate: action.payload.endDate,
+                aRstartDate: action.aRstartDate,
+                aRendDate: action.aRendDate,
             }
         case 'FETCH_CLASSES':
             return { ...state, mhsClasses: action.payload }
@@ -172,8 +173,8 @@ export function ClientContextProvider({ children }) {
         mode: null,
         classInSession: false,
         timeClassStart: null,
-        startDate: null,
-        endDate: null,
+        aRstartDate: null,
+        aRendDate: null,
         focusedInput: null,
         loading: true,
         display: 'mhsClasses',
@@ -185,6 +186,8 @@ export function ClientContextProvider({ children }) {
         studentIndexSelected: null,
         attendance: [],
         attendanceReport: [],
+        aRstartDate: Math.floor(Date.now() / 1000 - 3600 * 24 * 30),
+        aRendDate: Math.floor(Date.now() / 1000),
         error: ''
         }
     const [state, dispatch] = useReducer(clientContextReducer, initialState);
